@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-trait FlasgMessages
+trait FlashMessages
 
 /**
  * Traits FlashMessages
@@ -40,15 +40,15 @@ trait FlasgMessages
             case 'info':
                 $model = 'infoMessages';
                 break;
-            
+
             case 'error':
                 $model = 'errorMessages';
                 break;
 
             case 'success':
                 $model = 'successMessages';
-                break
-            
+                break;
+
             case 'warning':
                 $model = 'warningMessages';
                 break;
@@ -56,7 +56,7 @@ trait FlasgMessages
 
         if (is_array($message)) {
             foreach($message as $key => $value) {
-                array_push($this->model, $value)
+                array_push($this->model, $value);
             }
         } else {
             array_push($this->$model, $message);
