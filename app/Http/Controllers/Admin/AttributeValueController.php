@@ -26,4 +26,34 @@ class AttributeValueController extends BaseController
 
         return response()->json($values);
     }
+
+    public function addValues(Request $request) {
+        //todo try and implement the createOrUpdate() method for this instead
+        $value = new AttributeValue();
+        $value->attribute_id =  $request->input(('id'));
+        $value->value = $request->input('value');
+        $value->price = $request->input('price');
+        $value->save();
+
+        return response()->json($value);
+
+    }
+
+    public function updateValues(Request $request) {
+        $attributeValue = AttributeValue::findOrFail($request->input('valueId'));
+        $attributeValue->attribute->id = $request->input('id');
+        $attributeValue->value = $request->input('value');
+        $attributeValue->price = $request->input('price');
+        $attributeValue->save();
+
+        return response()->json($attributeValue);
+    }
+
+    public function deleteValues(Request $request) {
+        $attributeValue = AttributeValue::findOrFail($request->input('id'));
+
+        $attributeValue->delete();
+
+        return response()->json($attributeValue);
+    }
 }
