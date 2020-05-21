@@ -25,7 +25,7 @@ class CreateProductsTable extends Migration
             $table->decimal('price', 8, 2)->nullable();
             $table->decimal('sale_price', 8, 2)->nullable();
             $table->boolean('status')->default(1);
-            $table->boolean('features')->default(0);
+            $table->boolean('featured')->default(0);
 
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
 

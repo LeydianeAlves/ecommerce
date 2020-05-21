@@ -2,16 +2,17 @@
 
 namespace App\Repositories;
 
-use Doctrine\Instantiator\Exception\InvalidArgumentException;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\QueryException;
-
-use App\Contracts\ProductContract;
 use App\Models\Product;
 use App\Traits\UploadAble;
+use Illuminate\Http\UploadedFile;
+use App\Contracts\ProductContract;
+use Illuminate\Database\QueryException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Doctrine\Instantiator\Exception\InvalidArgumentException;
 
 /**
  * Class ProductRepository
+ *
  * @package \App\Repositories
  */
 class ProductRepository extends BaseRepository implements ProductContract
@@ -19,10 +20,10 @@ class ProductRepository extends BaseRepository implements ProductContract
     use UploadAble;
 
     /**
-     * ProductRepository constructor
+     * ProductRepository constructor.
      * @param Product $model
      */
-    public function  __construct(Product $model)
+    public function __construct(Product $model)
     {
         parent::__construct($model);
         $this->model = $model;
@@ -36,7 +37,7 @@ class ProductRepository extends BaseRepository implements ProductContract
      */
     public function listProducts(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
     {
-        return $this->all($columns,$order, $sort);
+        return $this->all($columns, $order, $sort);
     }
 
     /**
@@ -48,9 +49,12 @@ class ProductRepository extends BaseRepository implements ProductContract
     {
         try {
             return $this->findOneOrFail($id);
+
         } catch (ModelNotFoundException $e) {
+
             throw new ModelNotFoundException($e);
         }
+
     }
 
     /**
@@ -68,17 +72,19 @@ class ProductRepository extends BaseRepository implements ProductContract
             $merge = $collection->merge(compact('status', 'featured'));
 
             $product = new Product($merge->all());
+
             $product->save();
 
             if ($collection->has('categories')) {
                 $product->categories()->sync($params['categories']);
             }
             return $product;
+
         } catch (QueryException $exception) {
             throw new InvalidArgumentException($exception->getMessage());
         }
-
     }
+
     /**
      * @param array $params
      * @return mixed
@@ -115,5 +121,15 @@ class ProductRepository extends BaseRepository implements ProductContract
 
         return $product;
     }
-}
 
+    /**
+     * @param $slug
+     * @return mixed
+     */
+    public function findProductBySlug($slug)
+    {
+        $product = Product::where('slug', $slug)->first();
+
+        return $product;
+    }
+}

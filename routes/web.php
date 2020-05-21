@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 require 'admin.php';
 /*
@@ -13,15 +14,16 @@ require 'admin.php';
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Auth::routes();
 
-Auth::routes();
-Auth::routes();
+Route::View('/', 'site.pages.homepage');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
+Route::get('/Category/{slug}', 'Site\CategoryController@show')->name('category.show');
+Route::get('/product/{slug}', 'Site\ProductController@show')->name('product.show');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/product/add/cart', 'Site\ProductController@addToCart')->name('product.add.cart');
+Route::get('/cart', 'Site\CartController@getCart')->name('checkout.cart');
+Route::get('/cart/item/{id}/remove', 'Site\CartController@removeItem')->name('checkout.cart.remove');
+Route::get('/cart/clear', 'Site\CartController@clearCart')->name('checkout.cart.clear');

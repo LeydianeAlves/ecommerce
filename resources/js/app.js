@@ -56,6 +56,7 @@ Vue.use(VueSwal);
  */
 
 Vue.component('attribute-values', require('./components/AttributeValues.vue').default);
+Vue.component('product-attributes', require('./components/productAttributes.vue').default);
 
 const app = new Vue({
     el: '#app'

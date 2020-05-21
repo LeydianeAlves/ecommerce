@@ -2,13 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class brand
- * @package App\Models
- */
 class Brand extends Model
 {
     /**
@@ -24,10 +20,10 @@ class Brand extends Model
     /**
      * @param $value
      */
-    public function setNameAttributes($value)
+    public function setNameAttribute($value)
     {
         $this->attributes['name'] = $value;
-        $this->atttributes['slug'] = Str::slug($value);
+        $this->attributes['slug'] = Str::slug($value);
     }
 
     /**
