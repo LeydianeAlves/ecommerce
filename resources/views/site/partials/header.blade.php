@@ -36,6 +36,8 @@
                             </a>
                         </div>
 
+                        <a class="dropdown-item" href="{{ route('account.orders') }}">Orders</a>
+
                         @guest
                             <div class="widget-header">
                                 <a href="{{ route('login') }}" class="ml-3 icontext">

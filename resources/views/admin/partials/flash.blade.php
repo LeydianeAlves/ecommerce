@@ -5,30 +5,33 @@
     $warnings = Session::get('warning');
 @endphp
 
-@if ($errors) @foreach ($errors as $key => $error)
-    <div class="alert alert-danger alert-dismissable" role="alert">
-        <button class="close" type="button" data-dismiss="alert">x</button>
-        <strong>Error!</strong> {{ $error }}
+@if ($errors)
+{{ $errors }}
+{{-- @foreach($errors as $key => $value)
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <button class="close" type="button" data-dismiss="alert">×</button>
+        <strong>Error!</strong> {{ $value }}
     </div>
-@endforeach @endif
+@endforeach  --}}
+@endif
 
-@if($messages) @foreach ($messages as $key => $message)
+@if ($messages) @foreach($messages as $key => $value)
     <div class="alert alert-success alert-dismissible" role="alert">
         <button class="close" type="button" data-dismiss="alert">×</button>
-        <strong>Success!</strong> {{ $message }}
+        <strong>Success!</strong> {{ $value }}
     </div>
 @endforeach @endif
 
-@if($info) @foreach ($info as $key => $value )
+@if ($info) @foreach($info as $key => $value)
     <div class="alert alert-info alert-dismissible" role="alert">
         <button class="close" type="button" data-dismiss="alert">×</button>
         <strong>Info!</strong> {{ $value }}
     </div>
 @endforeach @endif
 
-@if($warnings) @foreach ($warnings as $key => $warning)
+@if ($warnings) @foreach($warnings as $key => $value)
     <div class="alert alert-warning alert-dismissible" role="alert">
         <button class="close" type="button" data-dismiss="alert">×</button>
-        <strong>Warning!</strong> {{ $warning }}
+        <strong>Warning!</strong> {{ $value }}
     </div>
 @endforeach @endif

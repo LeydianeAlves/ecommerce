@@ -37,10 +37,21 @@ class Setting extends Model
      */
     public static function set($key, $value = null)
     {
+
+        //would it be beneficial to include the artisan command
+        //to clear the cache with the artisan command
+        //or/and
+        //have a section within the settings that allows the user to
+        //access certain artisan commands
+        //\Artisan::call('cache:clear');
+
+        //set on the db
         $setting = new self();
         $entry = $setting->where('key', $key)->firstOrFail();
         $entry->value = $value;
         $entry->saveOrFail();
+
+        //set on config
         Config::set('key', $value);
         if (Config::get($key) == $value) {
             return true;

@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-
-use App\Http\Controllers\BaseController;
 use App\Models\Setting;
 use App\Traits\UploadAble;
-use App\Traits\FlashMessages;
+use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use App\Http\Controllers\BaseController;
 
+/**
+ * Class SettingController
+ * @package App\Http\Controllers\Admin
+ */
 class SettingsController extends BaseController
 {
     use UploadAble;
-    use FlashMessages;
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -31,12 +32,11 @@ class SettingsController extends BaseController
     public function update(Request $request)
     {
         if ($request->has('site_logo') && ($request->file('site_logo') instanceof UploadedFile)) {
+
             if (config('settings.site_logo') != null) {
                 $this->deleteOne(config('settings.site_logo'));
             }
-
             $logo = $this->uploadOne($request->file('site_logo'), 'img');
-
             Setting::set('site_logo', $logo);
 
         } elseif ($request->has('site_favicon') && ($request->file('site_favicon') instanceof UploadedFile)) {
@@ -44,19 +44,18 @@ class SettingsController extends BaseController
             if (config('settings.site_favicon') != null) {
                 $this->deleteOne(config('settings.site_favicon'));
             }
-
             $favicon = $this->uploadOne($request->file('site_favicon'), 'img');
             Setting::set('site_favicon', $favicon);
 
         } else {
+
             $keys = $request->except('_token');
 
-            foreach ($keys as $key => $value) {
+            foreach ($keys as $key => $value)
+            {
                 Setting::set($key, $value);
             }
-
         }
-
-        return $this->responseRedirectBack('Settings updated successfully', 'success');
+        return $this->responseRedirectBack('Settings updated successfully.', 'success');
     }
 }
