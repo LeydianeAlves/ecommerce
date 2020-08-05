@@ -81,8 +81,8 @@ return [
         // ],
         'pgsql' => [
             'driver' => 'pgsql',
-            'host' => env('DATABASE_URL'),
-            'port' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST'),
+            'port' => env('DB_PORT'),
             'database' => env('DB_DATABASE'),
             'password' => env('DB_PASSWORD')],
             'charset' => 'utf8',
